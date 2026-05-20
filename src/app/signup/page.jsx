@@ -1,144 +1,103 @@
 "use client";
-import { FcGoogle } from "react-icons/fc";
-import { Card, Separator } from "@heroui/react";
-
-import {
-    Button,
-    Description,
-    FieldError,
-    Form,
-    Input,
-    Label,
-    TextField,
-} from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { Button, Card, FieldError, Form, Input, Label, Separator, TextField } from "@heroui/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+
 
 const SignUpPage = () => {
-    const router = useRouter();
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+        const newUser = Object.fromEntries(formData.entries());
+        console.log('New User Data: ', newUser);
 
         const { data, error } = await authClient.signUp.email({
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            image: user.image,
-        });
+            email: newUser.email,
+            password: newUser.password,
+            name: newUser.name,
+            image: newUser.image
+        })
+
+        console.log('data: ', data, 'error: ', error);
 
         if (error) {
-            toast({error});
+            alert({ error });
         }
 
         if (data) {
-            toast.success(`User is created successful!`);
-            router.push('/login');
+            alert(`User is created successful!`, data);
+            redirect('/');
         }
+
     };
-
-    const handleGoogleSignin = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-            callbackURL: "/",
-        });
-
+    const handleGoogleSignin = () => {
+        //
     }
 
     return (
         <main className="bg-gray-100">
             <section className="py-12">
-                <div className="container mx-auto my-20">
-                    <div className="w-4/12 mx-auto">
-                        <Card className="card shadow-xl rounded-xl">
-                            <div className="text-center my-3">
-                                <h1 className="text-2xl font-bold">Create Account</h1>
-                                <p className="text-neutral-500">Start your adventure with Wanderlust</p>
-                            </div>
-                            <Form onSubmit={onSubmit} className="flex flex-col gap-4">
-                                <TextField isRequired name="name" type="text">
-                                    <Label>Name</Label>
-                                    <Input placeholder="Enter your name" />
-                                    <FieldError />
-                                </TextField>
-
-                                <TextField name="image" type="url">
-                                    <Label>Image URL</Label>
-                                    <Input placeholder="Image url" />
-                                    <FieldError />
-                                </TextField>
-
-                                <TextField
-                                    isRequired
-                                    name="email"
-                                    type="email"
-                                    validate={(value) => {
-                                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                                            return "Please enter a valid email address";
-                                        }
-                                        return null;
-                                    }}
-                                >
-                                    <Label>Email</Label>
-                                    <Input placeholder="john@example.com" />
-                                    <FieldError />
-                                </TextField>
-                                <TextField
-                                    isRequired
-                                    minLength={8}
-                                    name="password"
-                                    type="password"
-                                    validate={(value) => {
-                                        if (value.length < 8) {
-                                            return "Password must be at least 8 characters";
-                                        }
-                                        if (!/[A-Z]/.test(value)) {
-                                            return "Password must contain at least one uppercase letter";
-                                        }
-                                        if (!/[0-9]/.test(value)) {
-                                            return "Password must contain at least one number";
-                                        }
-                                        return null;
-                                    }}
-                                >
-                                    <Label>Password</Label>
-                                    <Input placeholder="Enter your password" />
-                                    <Description>
-                                        Must be at least 8 characters with 1 uppercase and 1 number
-                                    </Description>
-                                    <FieldError />
-                                </TextField>
-                                <div className="flex justify-center gap-2">
-                                    <Button className={"w-full bg-cyan-500 rounded-md"} type="submit">
-                                        Create Account
-                                    </Button>
+                <div className="max-w-xl mx-auto">
+                    <Card className="w-full">
+                        <Card.Header>
+                            <Card.Title>Create Account</Card.Title>
+                            <Card.Description>Enter your credentials to create your new account</Card.Description>
+                        </Card.Header>
+                        <Form onSubmit={onSubmit}>
+                            <Card.Content>
+                                <div className="flex flex-col gap-4">
+                                    <TextField isRequired name="name" type="text">
+                                        <Label>Name</Label>
+                                        <Input placeholder="Enter you name" variant="secondary" />
+                                        <FieldError />
+                                    </TextField>
+                                    <TextField isRequired name="email" type="email">
+                                        <Label>Email</Label>
+                                        <Input placeholder="email@example.com" variant="secondary" />
+                                        <FieldError />
+                                    </TextField>
+                                    <TextField isRequired minLength={8} name="password" type="password">
+                                        <Label>Password</Label>
+                                        <Input placeholder="••••••••" variant="secondary" />
+                                        <FieldError />
+                                    </TextField>
+                                    <TextField name="image" type="text">
+                                        <Label>Image URL</Label>
+                                        <Input placeholder="Enter your image link" variant="secondary" />
+                                        <FieldError />
+                                    </TextField>
                                 </div>
-                            </Form>
-                            <div className="flex justify-center items-center gap-2">
-                                <span>Already have an account?</span>
+                            </Card.Content>
+                            <Card.Footer className="mt-4 flex flex-col gap-2">
+                                <Button className="w-full" type="submit">
+                                    Create Account
+                                </Button>
+                            </Card.Footer>
+                        </Form>
+                        <div className="flex justify-center items-center gap-2">
+                            <span>Already have an account?</span>
 
-                                <Link
-                                    href="/login"
-                                    className="text-cyan-500 font-medium hover:underline"
-                                >
-                                    Sign In
-                                </Link>
-                            </div>
-                            <div className="flex justify-center items-center gap-3 mt-5">
-                                <Separator />
-                                <div className="whitespace-nowrap"> Or sign up with </div>
-                                <Separator />
-                            </div>
-                            <div>
-                                <Button onClick={handleGoogleSignin} variant="outline" className={'w-full rounded-md'}><FcGoogle /> Sign in with Google</Button>
-                            </div>
-                        </Card>
+                            <Link
+                                href="/login"
+                                className="text-cyan-500 font-medium hover:underline"
+                            >
+                                Sign In
+                            </Link>
+                        </div>
+                        <div className="flex justify-center items-center gap-3 mt-5">
+                            <Separator />
+                            <div className="whitespace-nowrap"> Or sign up with </div>
+                            <Separator />
+                        </div>
+                        <div>
+                            <Button onClick={handleGoogleSignin} variant="outline" className={'w-full rounded-md'}><FcGoogle /> Sign in with Google</Button>
 
-                    </div>
+                        </div>
+                    </Card>
                 </div>
             </section>
         </main>
