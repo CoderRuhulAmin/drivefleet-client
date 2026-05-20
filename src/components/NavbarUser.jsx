@@ -18,7 +18,7 @@ const NavbarUser = ({ user }) => {
                         <Dropdown>
                             <Button className='flex items-center gap-3 bg-transparent text-black' aria-label="Menu">
                                 <Avatar>
-                                    <Avatar.Image alt={"user"} src={user?.image} />
+                                    <Avatar.Image referrerPolicy="no-referrer" alt={"user"} src={user?.image} />
                                     <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
                                 </Avatar>
                                 <h2>{user?.name}</h2>
@@ -26,7 +26,7 @@ const NavbarUser = ({ user }) => {
                             <Dropdown.Popover>
                                 <div className='space-y-3 border-0 px-2 py-4'>
                                     <Avatar>
-                                        <Avatar.Image alt={"user"} src={user?.image} />
+                                        <Avatar.Image referrerPolicy="no-referrer" alt={"user"} src={user?.image} />
                                         <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
                                     </Avatar>
 

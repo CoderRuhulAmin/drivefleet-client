@@ -34,8 +34,10 @@ const SignUpPage = () => {
         }
 
     };
-    const handleGoogleSignin = () => {
-        //
+    const handleGoogleSignIn = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
     }
 
     return (
@@ -94,7 +96,7 @@ const SignUpPage = () => {
                             <Separator />
                         </div>
                         <div>
-                            <Button onClick={handleGoogleSignin} variant="outline" className={'w-full rounded-md'}><FcGoogle /> Sign in with Google</Button>
+                            <Button onClick={handleGoogleSignIn} variant="outline" className={'w-full rounded-md'}><FcGoogle /> Sign in with Google</Button>
 
                         </div>
                     </Card>

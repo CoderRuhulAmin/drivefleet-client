@@ -1,11 +1,9 @@
 "use client";
-import { Button, Dropdown, Label } from '@heroui/react';
-import Link from 'next/link';
 import React from 'react';
 import NavItems from './NavItems';
 import { authClient } from '@/lib/auth-client';
-import Image from 'next/image';
 import NavbarUser from './NavbarUser';
+import Link from 'next/link';
 
 const Navbar = () => {
 
@@ -21,7 +19,9 @@ const Navbar = () => {
         <nav className="grid grid-cols-1 lg:grid-cols-3 container mx-auto space-y-4 lg:space-y-0">
 
             <div className='flex items-center gap-3'>
-                <h1 className='text-3xl font-bold'>DRIVE<strong className='text-cyan-600'>FLEET</strong></h1>
+                <Link href='/'>
+                    <h2 className='text-3xl font-bold'>DRIVE<strong className='text-cyan-600'>FLEET</strong></h2>
+                </Link>
             </div>
 
             <ul className="flex justify-center items-center gap-3">
