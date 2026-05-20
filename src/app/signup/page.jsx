@@ -22,14 +22,14 @@ const SignUpPage = () => {
             image: newUser.image
         })
 
-        console.log('data: ', data, 'error: ', error);
+        console.log(data, error);
 
         if (error) {
-            alert({ error });
+            alert(`Credentials Error!`);
         }
 
         if (data) {
-            alert(`User is created successful!`, data);
+            alert(`User is created successful!`);
             redirect('/');
         }
 
@@ -43,8 +43,8 @@ const SignUpPage = () => {
             <section className="py-12">
                 <div className="max-w-xl mx-auto">
                     <Card className="w-full">
-                        <Card.Header>
-                            <Card.Title>Create Account</Card.Title>
+                        <Card.Header className="text-center my-3">
+                            <Card.Title className="text-2xl font-bold">Create Account</Card.Title>
                             <Card.Description>Enter your credentials to create your new account</Card.Description>
                         </Card.Header>
                         <Form onSubmit={onSubmit}>
