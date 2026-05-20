@@ -12,12 +12,12 @@ const LoginPage = () => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
-        const newUser = Object.fromEntries(formData.entries());
-        console.log('New User Data: ', newUser);
+        const user = Object.fromEntries(formData.entries());
+        console.log('New User Data: ', user);
 
         const { data, error } = await authClient.signIn.email({
-            email: newUser.email,
-            password: newUser.password,
+            email: user.email,
+            password: user.password,
         })
 
         console.log('data: ', data, 'error: ', error);
@@ -70,7 +70,7 @@ const LoginPage = () => {
                             </Card.Footer>
                         </Form>
                         <div className="flex justify-center items-center gap-2">
-                            <span>Don't have an account?</span>
+                            <span>Do not have an account?</span>
 
                             <Link
                                 href="/signup"

@@ -1,9 +1,18 @@
-import { Button } from '@heroui/react';
+"use client";
+import { Button, Dropdown, Label } from '@heroui/react';
 import Link from 'next/link';
 import React from 'react';
 import NavItems from './NavItems';
+import { authClient } from '@/lib/auth-client';
+import Image from 'next/image';
+import NavbarUser from './NavbarUser';
 
 const Navbar = () => {
+
+    const { data: session } = authClient.useSession();
+    // console.log(session);
+    const user = session?.user;
+    // console.log(user);
 
     // const handleSignOut = () => {
     //     //
@@ -19,28 +28,7 @@ const Navbar = () => {
                 <NavItems />
             </ul>
 
-            <ul className="flex justify-center items-center gap-3">
-                <li>
-                    <Link href={"/profile"}>Profile</Link>
-                </li>
-
-                <>
-                    <li>
-                        <Button size="sm" variant="danger" className={"rounded-none"}>
-                            Logout
-                        </Button>
-                    </li>
-                </>
-                <>
-                    <li>
-                        <Link href={"/login"}>Login</Link>
-                    </li>
-                    <li>
-                        <Link href={"/signup"}>Sign Up</Link>
-                    </li>
-                </>
-
-            </ul>
+            <NavbarUser user={user} />
 
         </nav>
     );
