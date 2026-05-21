@@ -27,13 +27,8 @@ const NavItems = () => {
         },
         {
             title: "My Bookings",
-            href: "/my-booking",
+            href: "/my-bookings",
             icon: CalendarCheck2,
-        },
-        {
-            title: "Add Car",
-            href: "/add-car",
-            icon: PlusCircle,
         },
     ];
 

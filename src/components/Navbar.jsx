@@ -4,6 +4,7 @@ import NavItems from './NavItems';
 import { authClient } from '@/lib/auth-client';
 import NavbarUser from './NavbarUser';
 import Link from 'next/link';
+import AddCarModal from './AddCarModal';
 
 const Navbar = () => {
 
@@ -12,9 +13,6 @@ const Navbar = () => {
     const user = session?.user;
     // console.log(user);
 
-    // const handleSignOut = () => {
-    //     //
-    // }
     return (
         <nav className="grid grid-cols-1 lg:grid-cols-3 container mx-auto space-y-4 lg:space-y-0">
 
@@ -26,6 +24,7 @@ const Navbar = () => {
 
             <ul className="flex justify-center items-center gap-3">
                 <NavItems />
+                <AddCarModal />
             </ul>
 
             <NavbarUser user={user} />

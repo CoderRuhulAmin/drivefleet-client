@@ -1,14 +1,13 @@
-import CarCard from '@/components/CarCard';
 import { getCars } from '@/lib/data';
 import React from 'react';
+import CarCard from './CarCard';
 
-
-const AllCarsPage = async () => {
-    const status = "All";
+const AvailableCars = async () => {
+    const status = "Available";
     const data = await getCars(status);
     const cars = data.data;
 
-    console.log("All cars: ", cars)
+    console.log("available cars: ", cars)
 
 
 
@@ -16,7 +15,7 @@ const AllCarsPage = async () => {
         <section className='py-12 bg-gray-100'>
             <div className="container mx-auto">
                 <h2 className='text-2xl font-bold mb-2'>
-                    All Cars <span className='text-cyan-600'>({cars.length})</span>
+                    Available Cars <span className='text-cyan-600'>({cars.length})</span>
                 </h2>
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
                     {
@@ -28,4 +27,4 @@ const AllCarsPage = async () => {
     );
 };
 
-export default AllCarsPage;
+export default AvailableCars;

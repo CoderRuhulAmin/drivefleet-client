@@ -4,6 +4,22 @@ import Link from "next/link";
 import { Dropdown, Button, Avatar, } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
+const userNavItems = [
+    {
+        title: "My Bookings",
+        href: "/my-bookings",
+    },
+    {
+        title: "My Added Cars",
+        href: "/my-added-cars",
+    },
+    {
+        title: "Add Car",
+        href: "/add-car",
+    },
+];
+
+
 const NavbarUser = ({ user }) => {
 
     const handleSignOut = async () => {
@@ -24,20 +40,20 @@ const NavbarUser = ({ user }) => {
                                 <h2>{user?.name}</h2>
                             </Button>
                             <Dropdown.Popover>
-                                <div className='space-y-3 border-0 px-2 py-4'>
-                                    <Avatar>
-                                        <Avatar.Image referrerPolicy="no-referrer" alt={"user"} src={user?.image} />
-                                        <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
-                                    </Avatar>
-
-                                    <h2 className='text-xl font-bold'>Name: {user?.name}</h2>
-
-                                    <p>Email: {user?.email}</p>
-
+                                <ul className='space-y-3 border-0 px-2 py-4'>
+                                    {
+                                        userNavItems.map((item, index) => {
+                                            return (
+                                                <li key={index} className="w-full">
+                                                    <Link href={item.href} className="w-full block hover:bg-cyan-600 hover:text-white rounded-md px-3 py-1.5">{item.title}</Link>
+                                                </li>
+                                            )
+                                        })
+                                    }
                                     <Button onClick={handleSignOut} size="sm" variant="danger" className={"rounded-md w-full"}>
                                         Logout
                                     </Button>
-                                </div>
+                                </ul>
                             </Dropdown.Popover>
                         </Dropdown>
                     </li>
