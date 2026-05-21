@@ -5,9 +5,9 @@ import React from 'react';
 const MyBookingsPage = async () => {
     
     const data = await getMyBookings();
-    const bookings = data.data;
+    const bookings = data?.data;
 
-    console.log("All bookings: ", bookings)
+    // console.log("All bookings: ", bookings)
 
     return (
         <section className='py-12 bg-gray-100'>
