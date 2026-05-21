@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardFooter, Button, Chip, CardTitle, } from "@heroui/react";
+import { Card, Button, Chip } from "@heroui/react";
 import Image from "next/image";
 
 import {

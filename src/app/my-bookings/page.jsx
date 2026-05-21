@@ -1,11 +1,11 @@
 import BookingCard from '@/components/BookingCard';
 import { getMyBookings } from '@/lib/data';
 import React from 'react';
-
+export const dynamic = "force-dynamic";
 const MyBookingsPage = async () => {
     
     const data = await getMyBookings();
-    const bookings = data?.data;
+    const bookings = data?.data || [];
 
     // console.log("All bookings: ", bookings)
 
